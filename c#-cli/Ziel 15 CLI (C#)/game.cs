@@ -30,11 +30,22 @@ namespace Ziel_15_CLI__C__
             return rand;
         }
 
+        int manageTurn(int previousID)
+        {
+            if (previousID < playerAmount)
+            {
+                previousID++;
+                return previousID;
+            } else if (previousID = playerAmount) {
+                return 1;
+            }
+            return previousID++;
+        }
 
 
         public game()
         {
-
+            
 
             Console.WriteLine(" You will be presented a random number in each round ");
             Console.WriteLine(" The choice is yours! Will you keep the number and   ");
@@ -45,6 +56,7 @@ namespace Ziel_15_CLI__C__
             Thread.Sleep(4000);
             Console.Clear();
             init();
+            scoreboard scoreboard = new scoreboard(playerAmount); 
 
         }
 
