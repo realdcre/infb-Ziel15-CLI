@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Ziel_15_CLI__C__
 {
     internal class game
@@ -22,12 +23,18 @@ namespace Ziel_15_CLI__C__
             Console.Clear();
         }
 
-        
-        
+        int dice()
+        {
+            Random rnd = new Random();
+            int rand = rnd.Next();
+            return rand;
+        }
+
+
 
         public game()
         {
-            
+
 
             Console.WriteLine(" You will be presented a random number in each round ");
             Console.WriteLine(" The choice is yours! Will you keep the number and   ");
@@ -38,7 +45,6 @@ namespace Ziel_15_CLI__C__
             Thread.Sleep(4000);
             Console.Clear();
             init();
-
 
         }
 
