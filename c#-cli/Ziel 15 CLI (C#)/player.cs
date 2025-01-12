@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ziel_15_CLI__C__
 {
-    internal class player
+    public class player
     {
         public string name { get; }
         public int pos { get; set; }

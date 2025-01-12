@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Numerics;
+using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,7 +26,7 @@ namespace Ziel_15_CLI__C__
             Console.Clear();
         }
 
-        int dice()
+        public int dice()
         {
             Random rnd = new Random();
             int rand = rnd.Next();
@@ -36,10 +39,52 @@ namespace Ziel_15_CLI__C__
             {
                 previousID++;
                 return previousID;
-            } else if (previousID = playerAmount) {
+            } else if (previousID == playerAmount) {
                 return 1;
             }
             return previousID++;
+        }
+
+        public static (string name, int pos) GetPlayerDetails(int id)
+        {
+
+            player player = playerManager.GetPlayers().Find(p => p.ID == id);
+            if (player != null)
+            {
+                return (player.name, player.pos);
+            } else {
+                return (string.Empty, 0);
+            }
+        }
+
+        int playTurn(int playerID)
+        {
+            int result;
+            string playerName = "Player";
+            Console.WriteLine($"It is {playerName}'s turn!");
+            Console.WriteLine("Press Enter to roll the dice");
+            string input = Console.ReadLine();
+            if (input == String.Empty)
+            {
+                Console.Clear ();
+                result = dice();
+            } else
+            {
+                
+                result = dice();
+                Console.Clear();
+            }
+            
+            Console.WriteLine($"The dice has landed on {result}!");
+            Console.WriteLine("Press K to keep or N to skip!");
+            input = Console.ReadLine();
+            if (input == "K" || input == "k")
+            {
+                
+            } else if (input == "N" || input == "n") {
+                
+            }
+
         }
 
 
