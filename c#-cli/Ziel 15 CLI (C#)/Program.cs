@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Threading;
-using Ziel_15_CLI__C__;
 
 namespace Ziel_15_CLI__C__
 {
     class Program
     {
-        public int ID;
+        public int ID; // Instance variable
+        private static PlayerManager playerManager = new PlayerManager(); // Assuming you have a PlayerManager class
+
         static void Main()
         {
-
+            Program programInstance = new Program(); // Create an instance of Program
 
             while (true)
             {
@@ -47,7 +48,7 @@ namespace Ziel_15_CLI__C__
                 {
                     string name = GetNameFromCommand(input);
                     Console.WriteLine($"Player added: {name}");
-                    addPlayer(input);
+                    programInstance.addPlayer(name); // Call the instance method
                 }
                 else if (input.Contains("setup player remove"))
                 {
@@ -85,12 +86,10 @@ namespace Ziel_15_CLI__C__
 
         void addPlayer(string name)
         {
-            player player = new player(ID, name);
+            player newPlayer = new player(ID, name); // Use the instance variable ID
             ID++;
-            playerManager.AddPlayer(player);
+            playerManager.AddPlayer(newPlayer); // Assuming you have a method to add players
         }
-
-
 
         static string GetNameFromCommand(string command)
         {
@@ -116,10 +115,6 @@ namespace Ziel_15_CLI__C__
             return 0; // Default value if parsing fails
         }
 
-
-
-
-
         public class player
         {
             public int ID;
@@ -130,24 +125,31 @@ namespace Ziel_15_CLI__C__
                 this.ID = ID;
                 this.name = name;
             }
+        }
 
+        public class PlayerManager
+        {
+            private List<player> players = new List<player>();
 
-
-
-
-
-            public class game
+            public void AddPlayer(player newPlayer)
             {
-                private int turns;
-                private int skips;
-                private int playerAmount;
+                players.Add(newPlayer);
+            }
 
-                public game(int turns, int skips, int playerAmount)
-                {
-                    this.turns = turns;
-                    this.skips = skips;
-                    this.playerAmount = playerAmount;
-                }
+            // Additional methods for managing players can be added here
+        }
+
+        public class game
+        {
+            private int turns;
+            private int skips;
+            private int playerAmount;
+
+            public game(int turns, int skips, int playerAmount)
+            {
+                this.turns = turns;
+                this.skips = skips;
+                this.playerAmount = playerAmount;
             }
         }
     }

@@ -45,19 +45,36 @@ namespace Ziel_15_CLI__C__
             return previousID++;
         }
 
-        public static (string name, int pos) GetPlayerDetails(int id)
+        public static string GetPlayerName(int id)
         {
 
             player player = playerManager.GetPlayers().Find(p => p.ID == id);
             if (player != null)
             {
-                return (player.name, player.pos);
+                return (player.name);
             } else {
-                return (string.Empty, 0);
+                return (string.Empty);
             }
         }
+        
+        public static int getPlayerSkips(int id)
+        {
+            player player = playerManager.GetPlayers().Find(player => player.ID == id);
+            if (player != null)
+            {
+                return player.denyAmount;
+            }
+            return 0;
+        }
+            
+            
+           
+        int getCurrentScore(int ID)
+        {
+            return scoreboard.getScore(ID);
+        }
 
-        int playTurn(int playerID)
+        void playTurn(int playerID)
         {
             int result;
             string playerName = "Player";
@@ -66,26 +83,47 @@ namespace Ziel_15_CLI__C__
             string input = Console.ReadLine();
             if (input == String.Empty)
             {
-                Console.Clear ();
+                Console.Clear();
                 result = dice();
-            } else
+            }
+            else
             {
-                
+
                 result = dice();
                 Console.Clear();
             }
-            
+
             Console.WriteLine($"The dice has landed on {result}!");
             Console.WriteLine("Press K to keep or N to skip!");
             input = Console.ReadLine();
+            int score;
+            int remainingTurns = turns - turnsDone;
+            int remainingSkips = skips - getPlayerSkips(playerID);
             if (input == "K" || input == "k")
             {
-                
-            } else if (input == "N" || input == "n") {
-                
-            }
+                score = getCurrentScore(playerID);
+                score = score + result;
 
+                Console.WriteLine($"Accepted the Result, your total score is {score} now, there are {remainingTurns} Turns and {remainingSkips} Skips left.");
+            }
+            else if (input == "N" || input == "n")
+            {
+                if (remainingSkips <= 0)
+                {
+                    score = getCurrentScore(playerID);
+                    score = score + result;
+                    Console.WriteLine($"Uh Oh! You cant skip anymore! Your total score is {score} and there are {remainingTurns}TUrns remaining!");
+                }
+                else
+                {
+                    player.deny(playerID);
+                    Console.WriteLine($"Yep, skipped! You have {remainingSkips - 1} Skips and {remainingTurns} remaining!");
+
+                }
+
+            }
         }
+        
 
 
         public game()

@@ -9,7 +9,6 @@ namespace Ziel_15_CLI__C__
     public class player
     {
         public string name { get; }
-        public int pos { get; set; }
         public int denyAmount { get; set; }
         public int ID { get;  }
         
@@ -20,12 +19,5 @@ namespace Ziel_15_CLI__C__
             return left;
 
         }
-
-        public int position(int add)
-        {
-            pos = pos + add;
-            return pos;
-        }
-
     }
 }
